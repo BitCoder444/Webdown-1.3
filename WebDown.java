@@ -1,9 +1,7 @@
 /**
  * @author OnlineBuilder
- * Copyright (c) <2017> <OnlineBuilder>
- * No rights or licenses from any copyright holder or contributor is granted,
- * whether expressly, by implication, estoppel or otherwise. 
- * */
+ * Copyright (c) OnlineBuilder 2017. 
+ */
 package onlinebuilder.webdown;
 
 import java.io.FileNotFoundException;
