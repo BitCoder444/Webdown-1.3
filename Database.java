@@ -1,9 +1,7 @@
 /**
  * @author OnlineBuilder
- * Copyright (c) <2017> <OnlineBuilder>
- * No rights or licenses from any copyright holder or contributor is granted,
- * whether expressly, by implication, estoppel or otherwise. 
- * */
+ * Copyright (c) OnlineBuilder 2017. 
+ */
 /**
  * This class is to be used to store common data that will be accessible
  * to all classes that WebDown is composed of.
