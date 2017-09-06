@@ -1,7 +1,9 @@
 /**
  * @author OnlineBuilder
- * Copyright (c) OnlineBuilder 2017. 
- */
+ * Copyright (c) <2017> <OnlineBuilder>
+ * No rights or licenses from any copyright holder or contributor is granted,
+ * whether expressly, by implication, estoppel or otherwise. 
+ * */
 package onlinebuilder.webdown;
 
 import java.io.FileNotFoundException;
@@ -13,7 +15,7 @@ public class SitemapParser
 	/**
 	 * @param sitemap
 	 */
-	public void extractHyperlinksFromSitemap(HTTPSWebpage sitemap)
+	public void extractHyperlinksFromSitemap(Webpage sitemap)
 	{
 		int locIndex;
 		int closingLocIndex;
@@ -61,7 +63,7 @@ public class SitemapParser
 	 * @param sitemap
 	 * @return
 	 */
-	private StringBuilder bufferSitemap(HTTPSWebpage sitemap)
+	private StringBuilder bufferSitemap(Webpage sitemap)
 	{
 		StringBuilder buffer;
 		String input;

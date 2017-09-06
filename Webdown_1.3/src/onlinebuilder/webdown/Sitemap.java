@@ -1,7 +1,9 @@
 /**
  * @author OnlineBuilder
- * Copyright (c) OnlineBuilder 2017. 
- */
+ * Copyright (c) <2017> <OnlineBuilder>
+ * No rights or licenses from any copyright holder or contributor is granted,
+ * whether expressly, by implication, estoppel or otherwise. 
+ * */
 package onlinebuilder.webdown;
 
 import java.io.FileNotFoundException;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 public class Sitemap
 {
 	private ArrayList<String> sitemapHyperlink;
-	private HTTPSWebpage sitemap;
+	private Webpage sitemap;
 	
 	/**
 	 * @param url
@@ -22,7 +24,7 @@ public class Sitemap
 	public Sitemap(String url) throws FileNotFoundException, IOException
 	{
 		sitemapHyperlink = new ArrayList<String>();
-		sitemap = new HTTPSWebpage(url);
+		sitemap = new Webpage(url);
 		Database.setInitialSitemapURL(new URL(url));
 	}
 	
@@ -34,7 +36,7 @@ public class Sitemap
 	public Sitemap(URL url) throws FileNotFoundException, IOException
 	{
 		sitemapHyperlink = new ArrayList<String>();
-		sitemap = new HTTPSWebpage(url);
+		sitemap = new Webpage(url);
 		Database.setInitialSitemapURL(url);
 	}
 	
@@ -54,7 +56,7 @@ public class Sitemap
 	/**
 	 * @return the sitemap
 	 */
-	public HTTPSWebpage getSitemap()
+	public Webpage getSitemap()
 	{
 		return sitemap;
 	}
@@ -70,7 +72,7 @@ public class Sitemap
 	/**
 	 * @param sitemap the sitemap to set
 	 */
-	public void setSitemap(HTTPSWebpage sitemap)
+	public void setSitemap(Webpage sitemap)
 	{
 		this.sitemap = sitemap;
 	}

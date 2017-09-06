@@ -1,7 +1,9 @@
 /**
  * @author OnlineBuilder
- * Copyright (c) OnlineBuilder 2017. 
- */
+ * Copyright (c) <2017> <OnlineBuilder>
+ * No rights or licenses from any copyright holder or contributor is granted,
+ * whether expressly, by implication, estoppel or otherwise. 
+ * */
 package onlinebuilder.webdown;
 
 import java.io.FileNotFoundException;
@@ -9,7 +11,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class HTTPSWebpage
+public class Webpage
 {
 	private URL url;
 	private AdvancedFile webpageFile;
@@ -19,7 +21,7 @@ public class HTTPSWebpage
 	 * @throws IOException 
 	 * @throws FileNotFoundException 
 	 * */
-	public HTTPSWebpage(String url) throws FileNotFoundException, IOException
+	public Webpage(String url) throws FileNotFoundException, IOException
 	{
         setUrl(url);
         String HTMLFileName;
@@ -41,7 +43,7 @@ public class HTTPSWebpage
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	public HTTPSWebpage(URL url) throws FileNotFoundException, IOException
+	public Webpage(URL url) throws FileNotFoundException, IOException
 	{
         setUrl(url);
         String HTMLFileName;

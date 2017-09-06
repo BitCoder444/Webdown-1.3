@@ -1,7 +1,9 @@
 /**
  * @author OnlineBuilder
- * Copyright (c) OnlineBuilder 2017. 
- */
+ * Copyright (c) <2017> <OnlineBuilder>
+ * No rights or licenses from any copyright holder or contributor is granted,
+ * whether expressly, by implication, estoppel or otherwise. 
+ * */
 /**
  * This class is to be used to store common data that will be accessible
  * to all classes that WebDown is composed of.
@@ -17,26 +19,33 @@ import java.util.Scanner;
 
 public class Database
 {
-	private static HTTPSWebpage sitemap;
+	private final static char[] validDirectoryChars =
+	{ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+			'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w',
+			'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
+	private static Webpage sitemap;
 	private static ArrayList<AdvancedDirectory> databases;
 	private static ArrayList<String> sitemapHyperlinks;
 
 	private static AdvancedDirectory webdownDirectory;
 	private static AdvancedDirectory workingDirectory;
 	private static URL initialSitemapURL;
-	
+
+	/**
+	 * Downloads the webpages
+	 */
 	public static void downloadWebpages()
 	{
-		for (String link: sitemapHyperlinks)
+		for (String link : sitemapHyperlinks)
 		{
-			HTTPSWebpage httpsWebpage;
-			HTTPSWebpageDownloader httpsWebpageDownloader;
+			Webpage httpsWebpage;
+			WebpageDownloader httpsWebpageDownloader;
 			try
 			{
-				httpsWebpage = new HTTPSWebpage(link);
-				httpsWebpageDownloader = new HTTPSWebpageDownloader(httpsWebpage);
+				httpsWebpage = new Webpage(link);
+				httpsWebpageDownloader = new WebpageDownloader(httpsWebpage);
 				httpsWebpageDownloader.download(httpsWebpage.getWebpageFile());
-				
+
 			} catch (FileNotFoundException e)
 			{
 				// TODO Auto-generated catch block
@@ -51,7 +60,7 @@ public class Database
 			}
 		}
 	}
-	
+
 	public static void parseSitemap()
 	{
 		sitemapHyperlinks = new ArrayList<String>();
@@ -66,8 +75,8 @@ public class Database
 	 */
 	public static void writeToSitemap() throws IOException
 	{
-		HTTPSWebpageDownloader httpsWebpageDownloader;
-		httpsWebpageDownloader = new HTTPSWebpageDownloader(sitemap);
+		WebpageDownloader httpsWebpageDownloader;
+		httpsWebpageDownloader = new WebpageDownloader(sitemap);
 		httpsWebpageDownloader.download(sitemap.getWebpageFile());
 	}
 
@@ -76,9 +85,10 @@ public class Database
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	public static void createEmptySitemap(String url) throws FileNotFoundException, IOException
+	public static void createEmptySitemap(String url)
+			throws FileNotFoundException, IOException
 	{
-		sitemap = new HTTPSWebpage(url);
+		sitemap = new Webpage(url);
 	}
 
 	/**
@@ -86,9 +96,10 @@ public class Database
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	public static void createSitemap(URL url) throws FileNotFoundException, IOException
+	public static void createSitemap(URL url)
+			throws FileNotFoundException, IOException
 	{
-		sitemap = new HTTPSWebpage(url);
+		sitemap = new Webpage(url);
 	}
 
 	/**
@@ -98,13 +109,15 @@ public class Database
 	 * @throws FileNotFoundException,
 	 *             {@link IOException}
 	 */
-	public static void createDatabase(URL url) throws FileNotFoundException, IOException
+	public static void createDatabase(URL url) 
+			throws FileNotFoundException, IOException
 	{
 		String authority;
 
 		authority = url.getAuthority();
 		authority = StringClass.replaceAll(".", authority, "_");
-		workingDirectory = new AdvancedDirectory(webdownDirectory + "/" + authority);
+		workingDirectory = new AdvancedDirectory(webdownDirectory 
+				+ "/" + authority);
 		databases = new ArrayList<AdvancedDirectory>();
 		databases.add(workingDirectory);
 	}
@@ -112,10 +125,8 @@ public class Database
 	/**
 	 * @return URL
 	 */
-	public static URL querySitemapURL()
+	public static URL querySitemapURL(Scanner sc)
 	{
-		Scanner sc;
-		sc = new Scanner(System.in);
 		println("Please enter the sitemap url.");
 		while (true)
 		{
@@ -135,7 +146,73 @@ public class Database
 			sc.close();
 		}
 	}
-	
+
+	/**
+	 * @param sc
+	 */
+	public static void queryValidInitialDirectory(Scanner sc)
+	{
+		String answer;
+		while (true)
+		{
+			String potentialDirectory;
+			println("Download the website to the default directory " 
+		            + "/media/codeseeker508/Extern/WebDown\n"
+					+ " or use a new directory? (Y/n)");
+			if (sc.hasNext())
+			{
+				answer = sc.next();
+				if (answer.equals("Y"))
+				{
+					println("Please type the full directory with no spaces");
+					if (sc.hasNext())
+					{
+						
+						char[] inputArray;
+						potentialDirectory = sc.next();
+						inputArray = potentialDirectory.toCharArray();
+						for (char character : inputArray)
+						{
+							if (isValidDirectoryCharacter(character))
+							{
+								continue;
+							} else
+							{
+								println("The path that you entered was invalid."
+										+ " Either enter a valid path or simply "
+										+ " \npress enter");
+								break;
+							}
+						}
+						webdownDirectory =
+								new AdvancedDirectory(potentialDirectory);
+						break;
+					}
+				}
+				else if (answer.equals("n"))
+				{
+					break;
+				}
+			}		
+		}
+	}
+
+	/**
+	 * @param input
+	 * @return
+	 */
+	private static boolean isValidDirectoryCharacter(char input)
+	{
+		for (char character : validDirectoryChars)
+		{
+			if (input == character)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public static void addHyperlink(String hyperlink)
 	{
 		sitemapHyperlinks.add(hyperlink);
@@ -161,7 +238,8 @@ public class Database
 	 * @param sitemapHyperlinks
 	 *            the sitemapHyperlinks to set
 	 */
-	public static void setSitemapHyperlinks(ArrayList<String> sitemapHyperlinks)
+	public static void setSitemapHyperlinks(
+			ArrayList<String> sitemapHyperlinks)
 	{
 		Database.sitemapHyperlinks = sitemapHyperlinks;
 	}
@@ -219,9 +297,17 @@ public class Database
 	/**
 	 * @return the sitemap
 	 */
-	public static HTTPSWebpage getSitemap()
+	public static Webpage getSitemap()
 	{
 		return sitemap;
+	}
+
+	/**
+	 * @return the validdirectorychars
+	 */
+	public static char[] getValiddirectorychars()
+	{
+		return validDirectoryChars;
 	}
 
 }
